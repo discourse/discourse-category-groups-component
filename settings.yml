@@ -1,0 +1,16 @@
+category_groups:
+  type: "list"
+  default: "Default Categories: staff, site-feedback, lounge"
+  description: "Format as: Group name: category-slug, category-slug-2"
+
+show_on_mobile: 
+  default: true
+  description: "Show the collapsible category box groups on mobile"
+
+show_ungrouped: 
+  default: true
+  description: "Display a group of categories that aren't assigned to another group"
+
+fancy_styling: 
+  default: true
+  description: "Turn on additional styling"
