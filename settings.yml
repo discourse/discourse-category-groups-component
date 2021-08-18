@@ -12,5 +12,5 @@ show_ungrouped:
   description: "Display a group of categories that aren't assigned to another group"
 
 fancy_styling: 
-  default: true
+  default: false
   description: "Turn on additional styling"
