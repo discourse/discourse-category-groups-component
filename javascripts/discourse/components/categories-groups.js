@@ -47,13 +47,19 @@ export default Component.extend({
     const parsedSettings = parseSettings(settings.category_groups);
 
     parsedSettings.forEach(function(obj) {
-      let catGroup = categories.filter((c) => {     
-          if (obj.cats.indexOf(c.slug) > -1 && !c.hasMuted) {
+      let orderedCats = new Map();
+      // loop once over all existing categories, preserve order when adding found categories
+      categories.forEach((c) => {
+          let i = obj.cats.indexOf(c.slug);
+          if (i > -1 && !c.hasMuted) {
               foundCats.push(c.slug);
-              return c;
+              orderedCats.set(i, c);
           }
       })
-
+      // Sort by key (index in settings string)
+      let sorted = [...orderedCats.entries()].sort((a,b) => a[0] > b[0]);
+      orderedCats = new Map (sorted);
+      let catGroup = Array.from(orderedCats.values())
       if (catGroup.length) { // don't show empty groups
         catGroupList.push({ name: obj.catGroup, cats: catGroup });
       }
