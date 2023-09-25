@@ -168,13 +168,13 @@
   }
 }
 
-// hides the default categories layout
-
 .navigation-categories .contents .category-boxes {
+  // hides the default categories layout on desktop, so the custom layout appears
   display: none;
 }
 
 @if $show_on_mobile == "true" {
+  // hides the default categories layout on mobile, so the custom layout appears
   .mobile-view {
     .category-list.with-topics {
       display: none;
