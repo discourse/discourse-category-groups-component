@@ -1,4 +1,9 @@
 en:
   theme_metadata:
     description: "custom category page with group settings"
+    settings:
+      category_groups: "Format as: Group name: category-slug, category-slug-2"
+      show_on_mobile: "Show the collapsible category box groups on mobile"
+      show_ungrouped: "Display a group of categories that aren't assigned to another group"
+      fancy_styling: "Turn on additional styling"
   ungrouped_categories_title: "Other"

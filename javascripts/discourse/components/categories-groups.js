@@ -1,104 +1,94 @@
 import { action } from "@ember/object";
 import Component from "@ember/component";
 import { dasherize } from "@ember/string";
-import discourseComputed from "discourse-common/utils/decorators";
 import I18n from "I18n";
-import { schedule } from "@ember/runloop";
+import { inject as service } from "@ember/service";
 
 function parseSettings(settings) {
-  let parsed = [];
-  settings.split("|").map(i => {
-      let seg = $.map(i.split(":"), $.trim);
-      let catGroup = seg[0];
-      let cats = seg[1];
-      parsed.push({ catGroup: catGroup, cats: cats });
+  return settings.split("|").map((i) => {
+    const [categoryGroup, categories] = i.split(":").map((str) => str.trim());
+    return { categoryGroup, categories };
   });
-  return parsed;
 }
 
-export default Component.extend({
-  catGroupList: [],
+export default class CategoriesGroups extends Component {
+  @service router;
 
-  didInsertElement() {
-    this._super(...arguments);
+  get shouldShow() {
+    // we don't want this to show for subcategories within category routes
+    return this.router.currentRouteName === "discovery.categories";
+  }
 
-    schedule("afterRender", () => {
-
-      if (localStorage.getItem("catGroups") === null) {
-        let defaultObj = [".custom-category-group-muted"];
-        localStorage.setItem("catGroups", JSON.stringify(defaultObj));
-      }
-    
-      if (localStorage.getItem("catGroups")) {
-        JSON.parse(localStorage.getItem("catGroups")).forEach(function(cat) {
-          $(cat).removeClass("is-expanded");
-        });
-      }
- 
-    });
-  },
-
-
-  @discourseComputed("categories", "categories.length")
-  catGroupList(categories, categoriesLength) {
-    let catGroupList = [];
-    let foundCats = [];
+  get categoryGroupList() {
+    const buildCategoryGroup = (obj, foundCategories) => {
+      return this.categories.filter((category) => {
+        const categoryArray = obj.categories.split(",");
+        if (categoryArray.includes(category.slug) && !category.hasMuted) {
+          foundCategories.push(category.slug);
+          return true;
+        }
+        return false;
+      });
+    };
 
     const parsedSettings = parseSettings(settings.category_groups);
-
-    parsedSettings.forEach(function(obj) {
-      let catGroup = categories.filter((c) => {     
-          if (obj.cats.indexOf(c.slug) > -1 && !c.hasMuted) {
-              foundCats.push(c.slug);
-              return c;
-          }
-      })
-
-      if (catGroup.length) { // don't show empty groups
-        catGroupList.push({ name: obj.catGroup, cats: catGroup });
+    const foundCategories = [];
+    const categoryGroupList = parsedSettings.reduce((groups, obj) => {
+      const categoryGroup = buildCategoryGroup(obj, foundCategories);
+      if (categoryGroup.length > 0) {
+        groups.push({ name: obj.categoryGroup, categories: categoryGroup });
       }
-    });
+      return groups;
+    }, []);
+    const ungroupedCategories = this.categories.filter(
+      (c) => !foundCategories.includes(c.slug)
+    );
+    const mutedCategories = this.categories.filterBy("hasMuted");
 
-    
-    let ungroupedCats = categories.filter((c) => {
-      return foundCats.indexOf(c.slug) == -1
-    })
-    let mutedCats = categories.filterBy("hasMuted");  
-    
-    if (settings.show_ungrouped) {
-      if (ungroupedCats.length) {
-        catGroupList.push({ name: I18n.t(themePrefix("ungrouped_categories_title"))
-        , cats: ungroupedCats });
-      }
+    if (settings.show_ungrouped && ungroupedCategories.length > 0) {
+      categoryGroupList.push({
+        name: I18n.t(themePrefix("ungrouped_categories_title")),
+        categories: ungroupedCategories,
+      });
     }
 
-    if (mutedCats.length) {
-      catGroupList.push({ name: "muted", cats: mutedCats });
+    if (mutedCategories.length > 0) {
+      categoryGroupList.push({ name: "muted", categories: mutedCategories });
     }
 
-    return catGroupList;
-  },
+    return categoryGroupList;
+  }
 
   @action
-  toggleCats(e) {
-    let id = dasherize(e);
-    let storedCats = JSON.parse(localStorage.getItem("catGroups"));
+  toggleCategories(e) {
+    const id = dasherize(e);
+    const storedCategories =
+      JSON.parse(localStorage.getItem("categoryGroups")) || [];
+    const categoryClass = `.custom-category-group-${id}`;
 
-    if (
-      (storedCats != null) &&
-      (storedCats.indexOf(".custom-category-group-" + id) > -1)
-    ) {
-      let index = storedCats.indexOf(".custom-category-group-" + id);
-      if (index >= 0) {
-        storedCats.splice( index, 1 );
-      }
-      $(".custom-category-group-" + id).addClass("is-expanded");
-      localStorage.setItem("catGroups", JSON.stringify(storedCats));
+    if (storedCategories.includes(categoryClass)) {
+      storedCategories.removeObject(categoryClass);
+      document.querySelector(categoryClass)?.classList.add("is-expanded");
     } else {
-      storedCats.push(".custom-category-group-" + id);
-      $(".custom-category-group-" + id).removeClass("is-expanded");
-      localStorage.setItem("catGroups", JSON.stringify(storedCats));
+      storedCategories.addObject(categoryClass);
+      document.querySelector(categoryClass)?.classList.remove("is-expanded");
     }
+
+    localStorage.setItem("categoryGroups", JSON.stringify(storedCategories));
   }
-  
-});
+
+  @action
+  initializeLocalStorage() {
+    if (!localStorage.getItem("categoryGroups")) {
+      localStorage.setItem(
+        "categoryGroups",
+        JSON.stringify([".custom-category-group-muted"])
+      );
+    }
+
+    const storedCategories = JSON.parse(localStorage.getItem("categoryGroups"));
+    storedCategories.forEach((category) => {
+      document.querySelector(category)?.classList.remove("is-expanded");
+    });
+  }
+}
