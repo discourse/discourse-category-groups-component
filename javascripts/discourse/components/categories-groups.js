@@ -22,7 +22,9 @@ export default class CategoriesGroups extends Component {
   get categoryGroupList() {
     const buildCategoryGroup = (obj, foundCategories) => {
       return this.categories.filter((category) => {
-        const categoryArray = obj.categories.split(",");
+        const categoryArray = obj.categories
+          .split(",")
+          .map((str) => str.trim());
         if (categoryArray.includes(category.slug) && !category.hasMuted) {
           foundCategories.push(category.slug);
           return true;
