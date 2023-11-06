@@ -1,11 +1,8 @@
 {{#if
   (or
-    (eq categoryPageStyle "categories-boxes")
+    this.site.desktopView
     (and (theme-setting "show_on_mobile") this.site.mobileView)
   )
 }}
-
-  <section class="category-boxes with-logos with-subcategories">
-    <CategoriesGroups @categories={{this.outletArgs.categories.content}} />
-  </section>
+  <CategoriesGroups @categories={{this.outletArgs.categories.content}} />
 {{/if}}

@@ -13,10 +13,16 @@ function parseSettings(settings) {
 
 export default class CategoriesGroups extends Component {
   @service router;
+  @service siteSettings;
 
   get shouldShow() {
-    // we don't want this to show for subcategories within category routes
-    return this.router.currentRouteName === "discovery.categories";
+    const currentRoute = this.router.currentRouteName;
+    const categoryPageStyle = this.siteSettings.desktop_category_page_style;
+
+    return (
+      currentRoute === "discovery.categories" &&
+      categoryPageStyle.includes("boxes")
+    );
   }
 
   get categoryGroupList() {
