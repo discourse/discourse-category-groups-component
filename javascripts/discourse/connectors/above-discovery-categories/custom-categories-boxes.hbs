@@ -1,6 +1,6 @@
 {{#if
   (or
-    (not this.site.mobileView)
+    this.site.desktopView
     (and (theme-setting "show_on_mobile") this.site.mobileView)
   )
 }}
