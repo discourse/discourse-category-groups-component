@@ -168,10 +168,19 @@
   }
 }
 
-.navigation-categories .contents .category-boxes-with-topics,
-.navigation-categories .contents .category-boxes {
-  // hides the default categories layout on desktop, so the custom layout appears
-  display: none;
+.navigation-categories .contents {
+  .category-boxes-with-topics,
+  .category-boxes {
+    // hides the default categories layout on desktop, so the custom layout appears
+    display: none;
+  }
+
+  .custom-categories-boxes {
+    .category-boxes-with-topics,
+    .category-boxes {
+      display: grid;
+    }
+  }
 }
 
 @if $show_on_mobile == "true" {
