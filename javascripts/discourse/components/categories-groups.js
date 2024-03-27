@@ -1,8 +1,8 @@
-import { action } from "@ember/object";
 import Component from "@ember/component";
+import { action } from "@ember/object";
+import { service } from "@ember/service";
 import { dasherize } from "@ember/string";
 import I18n from "I18n";
-import { inject as service } from "@ember/service";
 
 function parseSettings(settings) {
   return settings.split("|").map((i) => {
