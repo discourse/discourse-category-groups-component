@@ -49,7 +49,7 @@ export default class CategoriesGroups extends Component {
       return groups;
     }, []);
     const ungroupedCategories = this.categories.filter(
-      (c) => !foundCategories.includes(c.slug)
+      (c) => !foundCategories.includes(c.slug) && c.notification_level !== 0
     );
     const mutedCategories = this.categories.filterBy("hasMuted");
 
