@@ -10,3 +10,6 @@ show_ungrouped:
 
 fancy_styling:
   default: false
+
+hide_muted_subcategories:
+  default: false
