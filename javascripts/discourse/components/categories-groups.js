@@ -1,7 +1,6 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import { dasherize } from "@ember/string";
 import I18n from "I18n";
 
 function parseSettings(settings) {
@@ -72,7 +71,7 @@ export default class CategoriesGroups extends Component {
 
   @action
   toggleCategories(e) {
-    const id = dasherize(e);
+    const id = this.sanitizeIdentifier(e);
     const storedCategories =
       JSON.parse(localStorage.getItem("categoryGroups")) || [];
     const categoryClass = `.custom-category-group-${id}`;
@@ -101,5 +100,14 @@ export default class CategoriesGroups extends Component {
     storedCategories.forEach((category) => {
       document.querySelector(category)?.classList.remove("is-expanded");
     });
+  }
+
+  @action
+  sanitizeIdentifier(str) {
+    return str
+      .replace(/[^a-zA-Z0-9-_]/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .replace(/-+/g, "-")
+      .toLowerCase();
   }
 }
