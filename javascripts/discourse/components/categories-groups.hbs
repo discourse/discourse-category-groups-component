@@ -6,11 +6,11 @@
     >
       {{#each categoryGroupList as |t|}}
         <div
-          class="custom-category-group-{{this.sanitizeIdentifier t.name}}
+          class="custom-category-group-{{this.slugifyIdentifier t.name}}
             is-expanded"
         >
           <a
-            id={{this.sanitizeIdentifier t.name}}
+            id={{this.slugifyIdentifier t.name}}
             class="custom-category-group-toggle"
             href
             {{action "toggleCategories" t.name}}

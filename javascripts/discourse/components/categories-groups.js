@@ -1,6 +1,7 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import { slugify } from "discourse/lib/utilities";
 import I18n from "I18n";
 
 function parseSettings(settings) {
@@ -71,7 +72,7 @@ export default class CategoriesGroups extends Component {
 
   @action
   toggleCategories(e) {
-    const id = this.sanitizeIdentifier(e);
+    const id = slugify(e);
     const storedCategories =
       JSON.parse(localStorage.getItem("categoryGroups")) || [];
     const categoryClass = `.custom-category-group-${id}`;
@@ -103,11 +104,7 @@ export default class CategoriesGroups extends Component {
   }
 
   @action
-  sanitizeIdentifier(str) {
-    return str
-      .replace(/[^a-zA-Z0-9-_]/g, "-")
-      .replace(/^-+|-+$/g, "")
-      .replace(/-+/g, "-")
-      .toLowerCase();
+  slugifyIdentifier(str) {
+    return slugify(str);
   }
 }
