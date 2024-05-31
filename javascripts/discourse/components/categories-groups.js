@@ -1,7 +1,7 @@
 import Component from "@ember/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
-import { dasherize } from "@ember/string";
+import { slugify } from "discourse/lib/utilities";
 import I18n from "I18n";
 
 function parseSettings(settings) {
@@ -72,7 +72,7 @@ export default class CategoriesGroups extends Component {
 
   @action
   toggleCategories(e) {
-    const id = dasherize(e);
+    const id = slugify(e);
     const storedCategories =
       JSON.parse(localStorage.getItem("categoryGroups")) || [];
     const categoryClass = `.custom-category-group-${id}`;
@@ -101,5 +101,10 @@ export default class CategoriesGroups extends Component {
     storedCategories.forEach((category) => {
       document.querySelector(category)?.classList.remove("is-expanded");
     });
+  }
+
+  @action
+  slugifyIdentifier(str) {
+    return slugify(str);
   }
 }

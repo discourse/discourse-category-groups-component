@@ -5,9 +5,12 @@
       {{did-insert this.initializeLocalStorage}}
     >
       {{#each categoryGroupList as |t|}}
-        <div class="custom-category-group-{{dasherize t.name}} is-expanded">
+        <div
+          class="custom-category-group-{{this.slugifyIdentifier t.name}}
+            is-expanded"
+        >
           <a
-            id={{dasherize t.name}}
+            id={{this.slugifyIdentifier t.name}}
             class="custom-category-group-toggle"
             href
             {{action "toggleCategories" t.name}}
