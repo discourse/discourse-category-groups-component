@@ -49,6 +49,22 @@
   .subcategories .subcategory .subcategory-image-placeholder {
     margin: 0;
   }
+
+  // Extra link styling
+  .extra-link.category-box {
+    .parent-box-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      color: var(--primary);
+      margin-top: 0.25em;
+      margin-bottom: 0.5em;
+
+      .title {
+        margin: 0;
+      }
+    }
+  }
 }
 
 .custom-category-group-toggle {

@@ -11,6 +11,18 @@ function parseSettings(settings) {
   });
 }
 
+const ExtraLink = class {
+  constructor(args) {
+    this.isExtraLink = true;
+    this.id = args.id;
+    this.url = args.url;
+    this.color = args.color;
+    this.title = args.title;
+    this.description = args.description;
+    this.icon = args.icon;
+  }
+};
+
 export default class CategoriesGroups extends Component {
   @service router;
   @service siteSettings;
@@ -26,32 +38,51 @@ export default class CategoriesGroups extends Component {
   }
 
   get categoryGroupList() {
-    const buildCategoryGroup = (obj, foundCategories) => {
-      return this.categories.filter((category) => {
-        const categoryArray = obj.categories
-          .split(",")
-          .map((str) => str.trim());
-        if (categoryArray.includes(category.slug) && !category.hasMuted) {
-          foundCategories.push(category.slug);
-          return true;
-        }
-        return false;
-      });
-    };
-
     const parsedSettings = parseSettings(settings.category_groups);
+    const extraLinks = JSON.parse(settings.extra_links || "[]");
+
+    // Initialize an array to keep track of found categories and used links
     const foundCategories = [];
+    const usedLinks = [];
+
+    // Helper function to find extra link by ID
+    const findExtraLinkById = (id) => extraLinks.find((link) => link.id === id);
+
+    // Iterate through parsed settings in the defined order
     const categoryGroupList = parsedSettings.reduce((groups, obj) => {
-      const categoryGroup = buildCategoryGroup(obj, foundCategories);
+      const categoryArray = obj.categories.split(",").map((str) => str.trim());
+      const categoryGroup = [];
+
+      // Iterate through each category/link in the order specified in settings
+      categoryArray.forEach((categoryOrLinkId) => {
+        const category = this.categories.find(
+          (cat) => cat.slug === categoryOrLinkId && !cat.hasMuted
+        );
+
+        if (category) {
+          categoryGroup.push(category);
+          foundCategories.push(category.slug);
+        } else {
+          const extraLink = findExtraLinkById(categoryOrLinkId);
+          if (extraLink) {
+            categoryGroup.push(new ExtraLink(extraLink));
+            usedLinks.push(extraLink.id);
+          }
+        }
+      });
+
       if (categoryGroup.length > 0) {
-        groups.push({ name: obj.categoryGroup, categories: categoryGroup });
+        groups.push({ name: obj.categoryGroup, items: categoryGroup });
       }
       return groups;
     }, []);
+
+    // Find ungrouped categories
     const ungroupedCategories = this.categories.filter(
       (c) => !foundCategories.includes(c.slug) && c.notification_level !== 0
     );
 
+    // Find muted categories
     const mutedCategories = settings.hide_muted_subcategories
       ? this.categories.filter((c) => c.notification_level === 0)
       : this.categories.filterBy("hasMuted");
@@ -59,12 +90,12 @@ export default class CategoriesGroups extends Component {
     if (settings.show_ungrouped && ungroupedCategories.length > 0) {
       categoryGroupList.push({
         name: I18n.t(themePrefix("ungrouped_categories_title")),
-        categories: ungroupedCategories,
+        items: ungroupedCategories,
       });
     }
 
     if (mutedCategories.length > 0) {
-      categoryGroupList.push({ name: "muted", categories: mutedCategories });
+      categoryGroupList.push({ name: "muted", items: mutedCategories });
     }
 
     return categoryGroupList;
