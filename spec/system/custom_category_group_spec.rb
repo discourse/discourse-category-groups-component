@@ -32,7 +32,7 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
     theme_component.update_setting(:fancy_styling, true)
     theme_component.update_setting(
       :category_groups,
-      "Default Categories: staff, #{ExampleGroupLink.id}, site-feedback, lounge",
+      "Default Categories: #{ExampleGroupLink.id}, lounge",
     )
     SiteSetting.desktop_category_page_style = "categories_boxes"
     theme_component.save!
