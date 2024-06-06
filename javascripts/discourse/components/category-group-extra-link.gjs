@@ -1,0 +1,31 @@
+import Component from "@glimmer/component";
+import { htmlSafe } from "@ember/template";
+import borderColor from "discourse/helpers/border-color";
+import dIcon from "discourse-common/helpers/d-icon";
+
+export default class CategoryGroupExtraLink extends Component {
+  get borderColor() {
+    // Using JSON schema we get the hash, and then borderColor adds another one. Slice it out!
+    return this.args.link.color.slice(1);
+  }
+  <template>
+    <li style={{borderColor this.borderColor}} class="extra-link category-box">
+      <div class="category-box-inner">
+        <div class="category-details">
+          <div class="category-box-heading">
+            <a class="parent-box-link" href={{@link.url}}>
+              {{dIcon @link.icon}}
+              <h3 class="title">
+                {{@link.title}}
+              </h3>
+            </a>
+          </div>
+
+          <div class="description">
+            {{htmlSafe @link.description}}
+          </div>
+        </div>
+      </div>
+    </li>
+  </template>
+}

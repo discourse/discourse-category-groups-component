@@ -2,7 +2,8 @@ en:
   theme_metadata:
     description: "custom category page with group settings"
     settings:
-      category_groups: "Format as: Group name: category-slug, category-slug-2"
+      category_groups: "Format as: Group name: category-slug, extra-link-id, category-slug-2"
+      extra_links: "Extra links that can be mixed into category list. Add link ID in category_groups setting to render"
       show_on_mobile: "Show the collapsible category box groups on mobile"
       show_ungrouped: "Display a group of categories that aren't assigned to another group"
       hide_muted_subcategories: "When enabled, a non-muted parent category will not appear under the muted section if it has a muted subcategory"
