@@ -39,8 +39,8 @@ extra_links:
           "icon": {
             "type": "string",
             "title": "Icon",
-            "description": "An icon for the link",
-            "default": "fas fa-link"
+            "description": "An icon for the link. Example: heart",
+            "default": ""
           }
         },
         "required": ["id", "url", "title", "color"]

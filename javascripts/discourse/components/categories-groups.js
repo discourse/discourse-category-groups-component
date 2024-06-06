@@ -14,6 +14,7 @@ function parseSettings(settings) {
 const ExtraLink = class {
   constructor(args) {
     this.isExtraLink = true;
+    this.id = args.id;
     this.url = args.url;
     this.color = args.color;
     this.title = args.title;
