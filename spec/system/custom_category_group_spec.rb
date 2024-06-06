@@ -1,7 +1,5 @@
 RSpec.describe "Testing Category Groups Theme Component", system: true do
   let!(:theme_component) { upload_theme_component }
-  let!(:staff_category) { Fabricate(:category, name: "staff") }
-  let!(:site_feedback_category) { Fabricate(:category, name: "site-feedback") }
   let!(:lounge_category) { Fabricate(:category, name: "lounge") }
 
   class ExampleGroupLink
