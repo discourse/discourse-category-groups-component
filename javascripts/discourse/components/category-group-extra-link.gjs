@@ -1,8 +1,8 @@
 import Component from "@glimmer/component";
 import { htmlSafe } from "@ember/template";
 import borderColor from "discourse/helpers/border-color";
-import dIcon from "discourse-common/helpers/d-icon";
 import { cook } from "discourse/lib/text";
+import dIcon from "discourse-common/helpers/d-icon";
 
 export async function getCookedDescription(desc) {
   const cooked = await cook(desc);
