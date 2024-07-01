@@ -41,26 +41,21 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
   it "should display the extra links" do
     visit "/categories"
 
-    expect(page).to have_text ExampleGroupLink.title
-    expect(page).to have_text ExampleGroupLink.description
-    find(".extra-link-#{ExampleGroupLink.id}").click
+    extra_link = find(".extra-link-#{ExampleGroupLink.id}")
+    expect(extra_link).to have_text ExampleGroupLink.title
+    expect(extra_link[:innerHTML]).to include PrettyText.cook(ExampleGroupLink.description)
+    extra_link.find("a").click
     expect(page).to have_text "#{category.name} topics"
   end
 
   it "should render markdown as html" do
-    expect(ExampleGroupLink.description).to have_tag(
-      "em",
-      text: "The link description",
-      count: 1,
-    )
+    visit "/categories"
 
-    expect(ExampleGroupLink.description).to have_tag(
-      "strong",
-      text: "Markdown",
-      count: 1,
-    )
+    expect(page).to have_tag("em", text: "The link description", count: 1)
 
-    expect(ExampleGroupLink.description).to have_tag(
+    expect(page).to have_tag("strong", text: "Markdown", count: 1)
+
+    expect(page).to have_tag(
       "img",
       with: {
         title: ":slightly_smiling_face:",
