@@ -10,7 +10,7 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
       "Example"
     end
     def self.description
-      "This is an example group"
+      "This is an example group. *The link description* supports **Markdown** formatting. :slightly_smiling_face:"
     end
   end
 
@@ -45,5 +45,29 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
     expect(page).to have_text ExampleGroupLink.description
     find(".extra-link-#{ExampleGroupLink.id}").click
     expect(page).to have_text "#{category.name} topics"
+  end
+
+  it "should render markdown as html" do
+    expect(ExampleGroupLink.description).to have_tag(
+      "em",
+      text: "The link description",
+      count: 1,
+    )
+
+    expect(ExampleGroupLink.description).to have_tag(
+      "strong",
+      text: "Markdown",
+      count: 1,
+    )
+
+    expect(ExampleGroupLink.description).to have_tag(
+      "img",
+      with: {
+        title: ":slightly_smiling_face:",
+        alt: ":slightly_smiling_face:",
+        class: "emoji",
+      },
+      count: 1,
+    )
   end
 end
