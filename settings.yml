@@ -33,6 +33,7 @@ extra_links:
           },
           "description": {
             "type": "string",
+            "format": "markdown",
             "title": "Description",
             "description": "A short description of the link"
           },

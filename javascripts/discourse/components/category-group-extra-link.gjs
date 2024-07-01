@@ -1,5 +1,5 @@
 import Component from "@glimmer/component";
-import { htmlSafe } from "@ember/template";
+import CookText from "discourse/components/cook-text";
 import borderColor from "discourse/helpers/border-color";
 import dIcon from "discourse-common/helpers/d-icon";
 
@@ -25,7 +25,7 @@ export default class CategoryGroupExtraLink extends Component {
           </div>
 
           <div class="description">
-            {{htmlSafe @link.description}}
+            <CookText @rawText={{@link.description}} />
           </div>
         </div>
       </div>
