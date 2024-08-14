@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 fi:
+  theme_metadata:
+    description: "mukautetun aluesivu ryhmäasetuksilla"
+    settings:
+      category_groups: "Muoto: Ryhmän nimi: alueen-polkutunnus, lisälinkin-tunnus, alueen-polkutunnus-2"
+      extra_links: "Ylimääräisiä linkkejä, joita voidaan sekoittaa alueluetteloon. Lisää linkin tunnus category_groups-asetukseen hahmontamiseksi."
+      show_on_mobile: "Näytä tiivistettävät alueruuturyhmät mobiililaitteella"
+      show_ungrouped: "Näytä alueiden ryhmä, joita ei ole liitetty toiseen ryhmään"
+      hide_muted_subcategories: "Kun tämä on käytössä, mykistetty ylätason alue ei näy vaimennetun osion alla, jos sillä on vaimennettu ala-alue"
+      fancy_styling: "Ota lisätyylit käyttöön"
+  ungrouped_categories_title: "Muut"

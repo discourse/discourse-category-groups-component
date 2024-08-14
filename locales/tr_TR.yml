@@ -8,10 +8,10 @@ tr_TR:
   theme_metadata:
     description: "grup ayarları ile özel kategori sayfası"
     settings:
-      category_groups: "Şu şekilde biçimlendirin: Grup adı: kategori bilgisi, ekstra bağlantı kimliği, kategori bilgisi-2"
+      category_groups: "Şu şekilde biçimlendirin: Grup adı: category-slug, extra-link-id, category-slug-2"
       extra_links: "Kategori listesine karıştırılabilen ekstra bağlantılar. Oluşturmak için category_groups ayarına bağlantı kimliği ekleyin"
       show_on_mobile: "Daraltılabilir kategori kutusu gruplarını mobil cihazlarda göster"
-      show_ungrouped: "Başka bir gruba atanmamış bir kategori grubunu görüntüleme"
-      hide_muted_subcategories: "Etkinleştirildiğinde, sessize alınmış bir alt kategoriye sahipse, sessize alınmamış bir üst kategori, sessize alınmış bölümün altında görünmeyecektir."
-      fancy_styling: "Ek şekillendirmeyi açın"
+      show_ungrouped: "Başka bir gruba atanmamış bir kategori grubunu görüntüle"
+      hide_muted_subcategories: "Etkinleştirildiğinde, sessize alınmış bir alt kategoriye sahipse sessize alınmamış bir üst kategori, sessize alınmış bölümün altında görünmez."
+      fancy_styling: "Ek şekillendirmeyi aç"
   ungrouped_categories_title: "Diğer"

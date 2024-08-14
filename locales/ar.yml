@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 ar:
+  theme_metadata:
+    description: "صفحة الفئة المخصَّصة مع إعدادات المجموعة"
+    settings:
+      category_groups: "التنسيق على النحو التالي: اسم المجموعة: category-slug، extra-link-id، category-slug-2"
+      extra_links: "روابط إضافية يمكن دمجها في قائمة الفئات. أضِف معرِّف الرابط في إعداد category_groups لعرضه"
+      show_on_mobile: "عرض مجموعات مربعات الفئات القابلة للطي على الجوَّال"
+      show_ungrouped: "عرض مجموعة من الفئات التي لم يتم تعيينها إلى مجموعة أخرى"
+      hide_muted_subcategories: "عند التفعيل، لن تظهر فئة رئيسية غير مكتومة أسفل القسم المكتوم إذا كانت تحتوي على فئة فرعية مكتومة"
+      fancy_styling: "تشغيل التصميم الإضافي"
+  ungrouped_categories_title: "أخرى"
