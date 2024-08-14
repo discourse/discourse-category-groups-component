@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 zh_CN:
+  theme_metadata:
+    description: "带有群组设置的自定义类别页面"
+    settings:
+      category_groups: "格式为：群组名称: category-slug, extra-link-id, category-slug-2"
+      extra_links: "可以混合到类别列表中的额外链接。在 category_groups 设置中添加链接 ID 以进行呈现"
+      show_on_mobile: "在移动设备上显示可折叠的类别框组"
+      show_ungrouped: "显示未指定给其他群组的一组类别"
+      hide_muted_subcategories: "启用后，如果未设为免打扰的父类别具有已设为免打扰的子类别，则该类别将不会出现在已设为免打扰的部分下"
+      fancy_styling: "启用其他样式"
+  ungrouped_categories_title: "其他"

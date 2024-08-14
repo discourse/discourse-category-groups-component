@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 it:
+  theme_metadata:
+    description: "pagina di categoria personalizzata con impostazioni di gruppo"
+    settings:
+      category_groups: "Formatta come: Nome del gruppo: category-slug, extra-link-id, category-slug-2"
+      extra_links: "Link aggiuntivi che possono essere mescolati nell'elenco delle categorie. Aggiungi l'ID del link nell'impostazione category_groups per renderizzare"
+      show_on_mobile: "Mostra i gruppi di riquadri delle categorie comprimibili sui dispositivi mobili"
+      show_ungrouped: "Visualizza un gruppo di categorie non assegnate a un altro gruppo"
+      hide_muted_subcategories: "Se l'opzione è abilitata, una categoria principale non silenziata non verrà visualizzata nella sezione silenziate se ha una sottocategoria silenziata"
+      fancy_styling: "Attiva uno stile aggiuntivo"
+  ungrouped_categories_title: "Altro"

@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 ja:
+  theme_metadata:
+    description: "グループ設定付きのカスタムカテゴリページ"
+    settings:
+      category_groups: "フォーマット: グループ名: category-slug, extra-link-id, category-slug-2"
+      extra_links: "カテゴリリストに混在させられる追加リンク。レンダリングするには category_groups 設定にリンク ID を追加します"
+      show_on_mobile: "折りたたみ可能なカテゴリボックスグループをモバイルに表示する"
+      show_ungrouped: "別のグループに割り当てられていないカテゴリのグループを表示する"
+      hide_muted_subcategories: "有効にすると、ミュートされていない親カテゴリは、ミュートされたサブカテゴリがある場合に、ミュートセクションの下に表示されなくなります。"
+      fancy_styling: "追加のスタイルをオンにする"
+  ungrouped_categories_title: "その他"

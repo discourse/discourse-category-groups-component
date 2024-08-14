@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 nl:
+  theme_metadata:
+    description: "aangepaste categoriepagina met groepsinstellingen"
+    settings:
+      category_groups: "Indelen als: Groepsnaam: category-slug, extra-link-id, category-slug-2"
+      extra_links: "Extra links die in de categorieënlijst kunnen worden gemengd. Voeg link-ID toe in de instelling category_groups om te renderen"
+      show_on_mobile: "Geef de samenvouwbare categorievakgroepen weer op mobiel"
+      show_ungrouped: "Geef een groep categorieën weer die niet aan een andere groep zijn toegewezen"
+      hide_muted_subcategories: "Als dit is ingeschakeld, wordt een niet-gedempte bovenliggende categorie niet weergegeven onder de gedempte sectie als deze een gedempte subcategorie heeft"
+      fancy_styling: "Aanvullende stijl inschakelen"
+  ungrouped_categories_title: "Overig"

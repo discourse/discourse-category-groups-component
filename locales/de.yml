@@ -6,12 +6,12 @@
 
 de:
   theme_metadata:
-    description: "Benutzerdefinierte Kategorieseite mit Gruppeneinstellungen"
+    description: "benutzerdefinierte Kategorieseite mit Gruppeneinstellungen"
     settings:
-      category_groups: "Format als: Gruppenname: Sprechender Name für URL der Kategorie, Extra-Link-ID, Sprechender Name für URL der Kategorie-2"
-      extra_links: "Zusätzliche Links, die in die Kategorieliste eingebunden werden können. Füge die Link-ID in der Einstellung „category_groups“ hinzu, um ihn anzuzeigen."
+      category_groups: "Formatieren als: Gruppenname: sprechender Name für URL der Kategorie, Extra-Link-ID, sprechender Name für URL der Kategorie 2"
+      extra_links: "Zusätzliche Links, die in die Kategorieliste eingebunden werden können. Füge zum Anzeigen die Link-ID in der Einstellung „category_groups“ hinzu"
       show_on_mobile: "Zeige die zusammenklappbaren Kategoriebox-Gruppen auf Mobilgeräten an"
       show_ungrouped: "Eine Gruppe von Kategorien anzeigen, die keiner anderen Gruppe zugeordnet sind"
-      hide_muted_subcategories: "Wenn diese Option aktiviert ist, wird eine nicht stummgeschaltete übergeordnete Kategorie nicht im stummgeschalteten Abschnitt angezeigt, wenn sie eine stummgeschaltete Unterkategorie hat."
+      hide_muted_subcategories: "Wenn diese Option aktiviert ist, wird eine nicht stummgeschaltete übergeordnete Kategorie nicht im stummgeschalteten Abschnitt angezeigt, wenn sie eine stummgeschaltete Unterkategorie hat"
       fancy_styling: "Zusätzliches Styling aktivieren"
   ungrouped_categories_title: "Sonstiges"

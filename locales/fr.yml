@@ -5,3 +5,13 @@
 # https://translate.discourse.org/
 
 fr:
+  theme_metadata:
+    description: "page de catégorie personnalisée avec paramètres de groupe"
+    settings:
+      category_groups: "Formater comme : Nom du groupe : category-slug, extra-link-id, category-slug-2"
+      extra_links: "Liens supplémentaires pouvant être mélangés dans la liste des catégories. Ajouter l'ID de lien dans le paramètre category_groups pour le rendu"
+      show_on_mobile: "Afficher les groupes de catégories rabattables sur mobile"
+      show_ungrouped: "Afficher un groupe de catégories qui ne sont pas affectées à un autre groupe"
+      hide_muted_subcategories: "Lorsque cette option est activée, une catégorie parente non désactivée n'apparaîtra pas dans la section désactivée si elle comporte une sous-catégorie désactivée"
+      fancy_styling: "Activer un style supplémentaire"
+  ungrouped_categories_title: "Autre"
