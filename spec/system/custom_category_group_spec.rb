@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.describe "Testing Category Groups Theme Component", system: true do
   let!(:theme_component) { upload_theme_component }
   let!(:category) { Fabricate(:category) }
