@@ -8,6 +8,7 @@ export default class CategoryGroupExtraLink extends Component {
     // Using JSON schema we get the hash, and then borderColor adds another one. Slice it out!
     return this.args.link.color.slice(1);
   }
+
   <template>
     <li
       style={{borderColor this.borderColor}}
