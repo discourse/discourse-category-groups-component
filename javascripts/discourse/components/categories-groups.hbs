@@ -4,7 +4,7 @@
       class="custom-categories-groups"
       {{did-insert this.initializeLocalStorage}}
     >
-      {{#each categoryGroupList as |t|}}
+      {{#each this.categoryGroupList as |t|}}
         <div
           class="custom-category-group-{{this.slugifyIdentifier t.name}}
             is-expanded"
@@ -31,13 +31,13 @@
 
                 {{! modified version of the core categories-boxes layout }}
                 <li
-                  style={{unless noCategoryStyle (border-color c.color)}}
+                  style={{unless this.noCategoryStyle (border-color c.color)}}
                   data-category-id={{c.id}}
                   data-notification-level={{c.notificationLevelString}}
                   data-url={{c.url}}
                   class="category category-box category-box-{{c.slug}}
                     {{if c.isMuted 'muted'}}
-                    {{if noCategoryStyle 'no-category-boxes-style'}}"
+                    {{if this.noCategoryStyle 'no-category-boxes-style'}}"
                 >
                   <div class="category-box-inner">
                     <div class="category-logo">
