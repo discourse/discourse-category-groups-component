@@ -2,7 +2,7 @@ import Component from "@ember/component";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
 import { slugify } from "discourse/lib/utilities";
-import I18n from "I18n";
+import { i18n } from "discourse-i18n";
 
 function parseSettings(settings) {
   return settings.split("|").map((i) => {
@@ -89,7 +89,7 @@ export default class CategoriesGroups extends Component {
 
     if (settings.show_ungrouped && ungroupedCategories.length > 0) {
       categoryGroupList.push({
-        name: I18n.t(themePrefix("ungrouped_categories_title")),
+        name: i18n(themePrefix("ungrouped_categories_title")),
         items: ungroupedCategories,
       });
     }

@@ -1,7 +1,7 @@
 import Component from "@glimmer/component";
 import CookText from "discourse/components/cook-text";
 import borderColor from "discourse/helpers/border-color";
-import dIcon from "discourse-common/helpers/d-icon";
+import dIcon from "discourse/helpers/d-icon";
 
 export default class CategoryGroupExtraLink extends Component {
   get borderColor() {
