@@ -3,7 +3,7 @@ export default function migrate(settings) {
         const groups = settings.get("category_groups");
         const categoryGroups = groups.split("|").map((i) => {
             const [categoryGroup, categories] = i.split(":").map((str) => str.trim());
-            return { categoryGroup, categories, security: [0] };
+            return { categoryGroup, categories, visibility: [0] };
         });
 
         settings.set("grouped_categories", categoryGroups);

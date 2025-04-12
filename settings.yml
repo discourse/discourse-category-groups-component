@@ -5,7 +5,7 @@ grouped_categories:
     {
       "categoryGroup": "Default Categories",
       "categories": "staff, site-feedback, lounge",
-      "security": [
+      "visibility": [
         0
       ]
     }
@@ -20,7 +20,7 @@ grouped_categories:
       categories:
         type: string
         required: true
-      security:
+      visibility:
         type: groups
         min: 1
 

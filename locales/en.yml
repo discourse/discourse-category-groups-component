@@ -12,8 +12,8 @@ en:
             categories:
               label: "Slugs"
               description: "The category slugs and/or extra-link IDs, separated by commas."
-            security:
-              label: "Security"
+            visibility:
+              label: "Visibility"
               description: "The user groups that can see this category group. Leave empty, or select 'everyone' to show to all users."
       links:
         description: "Extra links that can be mixed into category list. Add link ID in Grouped categories setting to render"

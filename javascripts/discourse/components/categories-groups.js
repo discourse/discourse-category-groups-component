@@ -54,7 +54,7 @@ export default class CategoriesGroups extends Component {
     const categoryGroupList = parsedSettings.reduce((groups, obj) => {
       const categoryArray = obj.categories.split(",").map((str) => str.trim());
       const categoryGroup = [];
-      const securityGroups = obj.security ?? [0];
+      const categoryGroupVisibility = obj.visibility ?? [0];
 
       // Iterate through each category/link in the order specified in settings
       categoryArray.forEach((categoryOrLinkId) => {
@@ -74,7 +74,7 @@ export default class CategoriesGroups extends Component {
         }
       });
 
-      const displayGroup = securityGroups.some((group) =>
+      const displayGroup = categoryGroupVisibility.some((group) =>
         currentUserGroups.includes(group)
       );
 
