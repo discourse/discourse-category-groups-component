@@ -18,7 +18,7 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
   before do
     sign_in(Fabricate(:admin))
     theme_component.update_setting(
-      :extra_links,
+      :links,
       [
         {
           "id" => ExampleGroupLink.id,
@@ -32,8 +32,14 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
     )
     theme_component.update_setting(:fancy_styling, true)
     theme_component.update_setting(
-      :category_groups,
-      "Default Categories: #{ExampleGroupLink.id}, #{category.slug}",
+      :grouped_categories,
+      [
+        {
+          "categoryGroup" => "Default Categories",
+          "categories" => "#{ExampleGroupLink.id}, #{category.slug}",
+          "visibility" => [0],
+        }
+      ].to_json,
     )
     SiteSetting.desktop_category_page_style = "categories_boxes"
     theme_component.save!
