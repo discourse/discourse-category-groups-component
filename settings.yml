@@ -1,52 +1,61 @@
-category_groups:
-  type: "list"
-  default: "Default Categories: staff, site-feedback, lounge"
-extra_links:
-  default: >
-    []
-  json_schema: >-
+grouped_categories:
+  type: objects
+  default: [
     {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "ID",
-            "description": "A unique identifier for the link"
-          },
-          "url": {
-            "type": "string",
-            "title": "URL",
-            "description": "The URL for the link"
-          },
-          "color": {
-            "type": "string",
-            "title": "Color",
-            "description": "The color associated with the link",
-            "format": "color"
-          },
-          "title": {
-            "type": "string",
-            "title": "Title",
-            "description": "The title of the link"
-          },
-          "description": {
-            "type": "string",
-            "format": "markdown",
-            "title": "Description",
-            "description": "A short description of the link"
-          },
-          "icon": {
-            "type": "string",
-            "title": "Icon",
-            "description": "An icon for the link. Example: heart",
-            "default": ""
-          }
-        },
-        "required": ["id", "url", "title", "color"]
-      }
+      "categoryGroup": "Default Categories",
+      "categories": "staff, site-feedback, lounge",
+      "security": [
+        0
+      ]
     }
+  ]
+  schema:
+    name: "Category Groups"
+    identifier: categoryGroup
+    properties:
+      categoryGroup:
+        type: string
+        required: true
+      categories:
+        type: string
+        required: true
+      security:
+        type: groups
+        min: 1
+
+links:
+  type: objects
+  default: [
+    {
+      "id": "example",
+      "url": "https://example.com",
+      "color": "#F1592A",
+      "title": "Example Link",
+      "description": "This is an example link",
+      "icon": ""
+    }
+  ]
+  schema:
+    name: "Links"
+    identifier: id
+    properties:
+      id:
+        type: string
+        required: true
+      url:
+        type: string
+        required: true
+        url: true
+      color:
+        type: string
+        required: true
+      title:
+        type: string
+        required: true
+      description:
+        type: string
+      icon:
+        type: string
 
 show_on_mobile:
   default: true
