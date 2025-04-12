@@ -1,4 +1,5 @@
 grouped_categories:
+  refresh: true
   type: objects
   default: [
     {
@@ -24,6 +25,7 @@ grouped_categories:
         min: 1
 
 links:
+  refresh: true
   type: objects
   default: [
     {

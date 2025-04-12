@@ -74,16 +74,15 @@ export default class CategoriesGroups extends Component {
         }
       });
 
-      if (categoryGroup.length > 0) {
+      const displayGroup = securityGroups.some((group) =>
+        currentUserGroups.includes(group)
+      );
+
+      if (displayGroup && categoryGroup.length > 0) {
         groups.push({ name: obj.categoryGroup, items: categoryGroup });
       }
 
-      if (securityGroups.some((group) =>
-        currentUserGroups.includes(group)
-      )) {
-        return groups;
-      }
-      return [];
+      return groups;
     }, []);
 
     // Find ungrouped categories
