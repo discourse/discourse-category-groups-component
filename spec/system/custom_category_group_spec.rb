@@ -38,7 +38,7 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
           "categoryGroup" => "Default Categories",
           "categories" => "#{ExampleGroupLink.id}, #{category.slug}",
           "visibility" => [0],
-        }
+        },
       ].to_json,
     )
     SiteSetting.desktop_category_page_style = "categories_boxes"
