@@ -2,8 +2,41 @@ en:
   theme_metadata:
     description: "custom category page with group settings"
     settings:
-      category_groups: "Format as: Group name: category-slug, extra-link-id, category-slug-2"
-      extra_links: "Extra links that can be mixed into category list. Add link ID in category_groups setting to render"
+      grouped_categories:
+        description: "Group categories together"
+        schema:
+          properties:
+            categoryGroup:
+              label: "Group heading"
+              description: "The name of the group"
+            categories:
+              label: "Slugs"
+              description: "The category slugs and/or extra-link IDs, separated by commas."
+            visibility:
+              label: "Visibility"
+              description: "The user groups that can see this category group. Leave empty, or select 'everyone' to show to all users."
+      links:
+        description: "Extra links that can be mixed into category list. Add link ID in Grouped categories setting to render"
+        schema:
+          properties:
+            id:
+              label: "ID"
+              description: "The ID of the link"
+            url:
+              label: "URL"
+              description: "The URL of the link"
+            color:
+              label: "Color"
+              description: "CSS compatible hexadecimal color code for the link. ie. #F1592A"
+            title:
+              label: "Title"
+              description: "The title of the link"
+            description:
+              label: "Description"
+              description: "The description of the link"
+            icon:
+              label: "Icon"
+              description: "The icon of the link"
       show_on_mobile: "Show the collapsible category box groups on mobile"
       show_ungrouped: "Display a group of categories that aren't assigned to another group"
       hide_muted_subcategories: "When enabled, a non-muted parent category will not appear under the muted section if it has a muted subcategory"
