@@ -66,4 +66,18 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
       count: 1,
     )
   end
+
+  it "should render category badges" do
+    visit "/categories"
+
+    expect(page).to have_css(".category-box-heading .d-icon-heart", count: 1)
+    expect(page).to have_css(".category-box-heading .--style-square", count: 2)
+  end
+
+  it "works with core category icons and emojis" do
+    category.update!(style_type: "emoji", emoji: "wave")
+    visit "/categories"
+
+    expect(page).to have_css(".category-box-heading .emoji[alt='wave']", count: 1)
+  end
 end
