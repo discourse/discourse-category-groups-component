@@ -33,10 +33,18 @@
       pointer-events: auto;
     }
 
+    .description p {
+      margin: 0;
+    }
+
     .subcategories {
       gap: 0 0.5em;
       margin-top: auto;
     }
+  }
+
+  .badge-category__wrapper {
+    font-size: unset;
   }
 
   .category-box-heading {
@@ -176,11 +184,11 @@
       .category-box-inner {
         border: none;
         padding: 2em;
+        transition: background 0.25s ease-in-out;
 
         @media screen and (max-width: 700px) {
           padding: 2em 1em 1.25em;
         }
-        transition: background 0.25s ease-in-out;
       }
 
       .category-box-heading {
