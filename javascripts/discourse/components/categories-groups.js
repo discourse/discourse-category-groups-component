@@ -6,13 +6,6 @@ import { categoryBadgeHTML } from "discourse/helpers/category-link";
 import { slugify } from "discourse/lib/utilities";
 import { i18n } from "discourse-i18n";
 
-function parseSettings(settings) {
-  return settings.split("|").map((i) => {
-    const [categoryGroup, categories] = i.split(":").map((str) => str.trim());
-    return { categoryGroup, categories };
-  });
-}
-
 const ExtraLink = class {
   constructor(args) {
     this.isExtraLink = true;
@@ -49,8 +42,17 @@ export default class CategoriesGroups extends Component {
   }
 
   get categoryGroupList() {
-    const parsedSettings = parseSettings(settings.category_groups);
-    const extraLinks = JSON.parse(settings.extra_links || "[]");
+    const parsedSettings = settings.grouped_categories;
+    const extraLinks = settings.links;
+
+    let currentUserGroups = [0];
+    const currentUser = this.currentUser;
+
+    if (currentUser) {
+      currentUser.groups.filter((group) => {
+        currentUserGroups.push(group.id);
+      });
+    }
 
     // Initialize an array to keep track of found categories and used links
     const foundCategories = [];
@@ -63,6 +65,7 @@ export default class CategoriesGroups extends Component {
     const categoryGroupList = parsedSettings.reduce((groups, obj) => {
       const categoryArray = obj.categories.split(",").map((str) => str.trim());
       const categoryGroup = [];
+      const categoryGroupVisibility = obj.visibility ?? [0];
 
       // Iterate through each category/link in the order specified in settings
       categoryArray.forEach((categoryOrLinkId) => {
@@ -82,9 +85,14 @@ export default class CategoriesGroups extends Component {
         }
       });
 
-      if (categoryGroup.length > 0) {
+      const displayGroup = categoryGroupVisibility.some((group) =>
+        currentUserGroups.includes(group)
+      );
+
+      if (displayGroup && categoryGroup.length > 0) {
         groups.push({ name: obj.categoryGroup, items: categoryGroup });
       }
+
       return groups;
     }, []);
 
