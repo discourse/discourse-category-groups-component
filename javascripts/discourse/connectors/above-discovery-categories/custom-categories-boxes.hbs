@@ -1,8 +1,0 @@
-{{#if
-  (or
-    this.site.desktopView
-    (and (theme-setting "show_on_mobile") this.site.mobileView)
-  )
-}}
-  <CategoriesGroups @categories={{this.outletArgs.categories.content}} />
-{{/if}}
