@@ -5,12 +5,12 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-gap: 2em;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (width <= 800px) {
     // tabletish
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  @media screen and (max-width: 650px) {
+  @media screen and (width <= 650px) {
     // mobilish
     grid-template-columns: 1fr;
     grid-gap: 1em;
@@ -186,7 +186,7 @@
         padding: 2em;
         transition: background 0.25s ease-in-out;
 
-        @media screen and (max-width: 700px) {
+        @media screen and (width <= 700px) {
           padding: 2em 1em 1.25em;
         }
       }
@@ -196,7 +196,7 @@
       }
 
       &:hover {
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 15px rgb(0, 0, 0, 0.1);
         transform: translate(0, -4px);
       }
     }
