@@ -44,17 +44,12 @@ RSpec.describe "Category Groups", system: true do
   it "renders markdown as html" do
     visit "/categories"
 
-    expect(page).to have_tag("em", text: "The link description", count: 1)
+    expect(page).to have_css("em", exact_text: "The link description", count: 1)
 
-    expect(page).to have_tag("strong", text: "Markdown", count: 1)
+    expect(page).to have_css("strong", exact_text: "Markdown", count: 1)
 
-    expect(page).to have_tag(
-      "img",
-      with: {
-        title: ":slightly_smiling_face:",
-        alt: ":slightly_smiling_face:",
-        class: "emoji",
-      },
+    expect(page).to have_css(
+      'img.emoji[title=":slightly_smiling_face:"][alt=":slightly_smiling_face:"]',
       count: 1,
     )
   end
