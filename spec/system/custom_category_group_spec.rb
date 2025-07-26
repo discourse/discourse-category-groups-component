@@ -1,18 +1,13 @@
 # frozen_string_literal: true
-RSpec.describe "Testing Category Groups Theme Component", system: true do
+
+RSpec.describe "Category Groups", system: true do
   let!(:theme_component) { upload_theme_component }
   let!(:category) { Fabricate(:category) }
 
-  class ExampleGroupLink
-    def self.id
-      "some_id"
-    end
-    def self.title
-      "Example"
-    end
-    def self.description
-      "This is an example group. *The link description* supports **Markdown** formatting. :slightly_smiling_face:"
-    end
+  let(:id) { "some_id" }
+  let(:title) { "Example" }
+  let(:description) do
+    "This is an example group. *The link description* supports **Markdown** formatting. :slightly_smiling_face:"
   end
 
   before do
@@ -21,35 +16,32 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
       :extra_links,
       [
         {
-          "id" => ExampleGroupLink.id,
+          "id" => id,
           "url" => "/c/#{category.slug}",
           "color" => "#ff0000",
-          "title" => ExampleGroupLink.title,
-          "description" => ExampleGroupLink.description,
+          "title" => title,
+          "description" => description,
           "icon" => "heart",
         },
       ].to_json,
     )
     theme_component.update_setting(:fancy_styling, true)
-    theme_component.update_setting(
-      :category_groups,
-      "Default Categories: #{ExampleGroupLink.id}, #{category.slug}",
-    )
+    theme_component.update_setting(:category_groups, "Default Categories: #{id}, #{category.slug}")
     SiteSetting.desktop_category_page_style = "categories_boxes"
     theme_component.save!
   end
 
-  it "should display the extra links" do
+  it "displays the extra links" do
     visit "/categories"
 
-    extra_link = find(".extra-link-#{ExampleGroupLink.id}")
-    expect(extra_link).to have_text ExampleGroupLink.title
-    expect(extra_link[:innerHTML]).to include PrettyText.cook(ExampleGroupLink.description)
+    extra_link = find(".extra-link-#{id}")
+    expect(extra_link).to have_text title
+    expect(extra_link[:innerHTML]).to include PrettyText.cook(description)
     extra_link.find("a").click
     expect(page).to have_text "#{category.name} topics"
   end
 
-  it "should render markdown as html" do
+  it "renders markdown as html" do
     visit "/categories"
 
     expect(page).to have_tag("em", text: "The link description", count: 1)
@@ -67,7 +59,7 @@ RSpec.describe "Testing Category Groups Theme Component", system: true do
     )
   end
 
-  it "should render category badges" do
+  it "renders category badges" do
     visit "/categories"
 
     expect(page).to have_css(".category-box-heading .d-icon-heart", count: 1)
