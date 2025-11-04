@@ -89,7 +89,7 @@
 
   .d-icon {
     font-size: var(--font-up-2);
-    top: -0.15em; // alignment
+    top: -0.25em; // alignment
     margin-left: 0.33em;
     color: var(--primary-medium);
   }
@@ -103,9 +103,7 @@
 
 [class^="custom-category-group-"] {
   ul {
-    transition:
-      opacity 1s,
-      height 0;
+    transition: opacity 1s, height 0;
     opacity: 0;
     height: 0;
     margin-bottom: 0;
@@ -119,9 +117,7 @@
 
   &.is-expanded {
     ul {
-      transition:
-        opacity 1s,
-        height 0s;
+      transition: opacity 1s, height 0s;
       height: unset;
       opacity: 1;
       margin-bottom: 1.5em;
