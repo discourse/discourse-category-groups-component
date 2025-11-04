@@ -103,7 +103,9 @@
 
 [class^="custom-category-group-"] {
   ul {
-    transition: opacity 1s, height 0;
+    transition:
+      opacity 1s,
+      height 0;
     opacity: 0;
     height: 0;
     margin-bottom: 0;
@@ -117,7 +119,9 @@
 
   &.is-expanded {
     ul {
-      transition: opacity 1s, height 0s;
+      transition:
+        opacity 1s,
+        height 0s;
       height: unset;
       opacity: 1;
       margin-bottom: 1.5em;
