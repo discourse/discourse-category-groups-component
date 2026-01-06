@@ -38,7 +38,13 @@ RSpec.describe "Category Groups", system: true do
     expect(extra_link).to have_text title
     expect(extra_link[:innerHTML]).to include PrettyText.cook(description)
     extra_link.find("a").click
-    expect(page).to have_text "#{category.name} topics"
+    expect(page).to have_selector(
+      "h1",
+      text: I18n.t(
+        "js.discovery.headings.category.latest",
+        category: category.name
+      )
+    )
   end
 
   it "renders markdown as html" do
