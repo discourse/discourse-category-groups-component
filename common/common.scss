@@ -3,7 +3,7 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-gap: 2em;
+  gap: 2em;
 
   @media screen and (width <= 800px) {
     // tabletish
@@ -13,7 +13,7 @@
   @media screen and (width <= 650px) {
     // mobilish
     grid-template-columns: 1fr;
-    grid-gap: 1em;
+    gap: 1em;
   }
 
   li.category-box {

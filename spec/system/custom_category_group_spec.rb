@@ -40,10 +40,7 @@ RSpec.describe "Category Groups", system: true do
     extra_link.find("a").click
     expect(page).to have_selector(
       "h1",
-      text: I18n.t(
-        "js.discovery.headings.category.latest",
-        category: category.name
-      )
+      text: I18n.t("js.discovery.headings.category.latest", category: category.name),
     )
   end
 
