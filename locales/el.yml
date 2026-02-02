@@ -5,3 +5,12 @@
 # https://translate.discourse.org/
 
 el:
+  theme_metadata:
+    description: "σελίδα προσαρμοσμένης κατηγορίας με ρυθμίσεις ομάδας"
+    settings:
+      category_groups: "Μορφή ως: Όνομα ομάδας: category-slug, extra-link-id, category-slug-2"
+      extra_links: "Επιπλέον σύνδεσμοι που μπορούν να αναμειχθούν στη λίστα κατηγοριών. Προσθέστε το αναγνωριστικό συνδέσμου στη ρύθμιση category_groups για απεικόνιση"
+      show_ungrouped: "Εμφάνιση μιας ομάδας κατηγοριών που δεν έχουν ανατεθεί σε άλλη ομάδα"
+      hide_muted_subcategories: "Όταν είναι ενεργοποιημένη, μια μη σιγασμένη γονική κατηγορία δεν θα εμφανίζεται στην ενότητα με σίγαση εάν έχει υποκατηγορία σε σίγαση"
+      fancy_styling: "Ενεργοποίηση πρόσθετου στυλ"
+  ungrouped_categories_title: "Άλλη"
