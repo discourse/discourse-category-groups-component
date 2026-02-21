@@ -12,7 +12,7 @@ export default class CustomCategoriesBoxes extends Component {
         (and settings.show_on_mobile this.site.mobileView)
       )
     }}
-      <CategoriesGroups @categories={{this.outletArgs.categories.content}} />
+      <CategoriesGroups @categories={{this.outletArgs.categories}} />
     {{/if}}
   </template>
 }

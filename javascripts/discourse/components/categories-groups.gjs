@@ -110,7 +110,7 @@ export default class CategoriesGroups extends Component {
     // Find muted categories
     const mutedCategories = settings.hide_muted_subcategories
       ? this.categories.filter((c) => c.notification_level === 0)
-      : this.categories.filterBy("hasMuted");
+      : this.categories.filter((c) => c.hasMuted);
 
     if (settings.show_ungrouped && ungroupedCategories.length > 0) {
       categoryGroupList.push({
