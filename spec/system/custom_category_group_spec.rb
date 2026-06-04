@@ -85,7 +85,10 @@ RSpec.describe "Category Groups", system: true do
   it "displays the group name in the default locale" do
     visit "/categories"
 
-    expect(page).to have_css(".custom-category-group-default-categories h2", text: "Default Categories")
+    expect(page).to have_css(
+      ".custom-category-group-default-categories h2",
+      text: "Default Categories",
+    )
   end
 
   it "localizes the group name for the user's locale" do
