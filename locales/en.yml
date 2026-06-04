@@ -11,8 +11,8 @@ en:
               description: "Any unique identifier for this link (e.g. my-link)."
             color:
               description: "Use hex format, e.g. #00ff00"
-            show_after:
-              description: "The extra link will appear after this category."
+            show_before:
+              description: "The extra link will appear before this category."
       show_on_mobile: "Show the collapsible category box groups on mobile"
       show_ungrouped: "Display a group of categories that aren't assigned to another group"
       hide_muted_subcategories: "When enabled, a non-muted parent category will not appear under the muted section if it has a muted subcategory"

@@ -22,7 +22,7 @@ RSpec.describe "Category Groups", system: true do
           "title" => title,
           "description" => description,
           "icon" => "heart",
-          "show_after" => [category.id],
+          "show_before" => [category.id],
         },
       ].to_json,
     )
@@ -74,11 +74,11 @@ RSpec.describe "Category Groups", system: true do
     expect(page).to have_css(".category-box-heading .--style-square", count: 2)
   end
 
-  it "positions an extra link after its show_after category" do
+  it "positions an extra link before its show_before category" do
     visit "/categories"
 
     expect(page).to have_css(
-      ".custom-category-group-default-categories .category-box-#{category.slug} + .extra-link-#{id}",
+      ".custom-category-group-default-categories .extra-link-#{id} + .category-box-#{category.slug}",
     )
   end
 

@@ -95,7 +95,7 @@ extra_links:
         type: string
       icon:
         type: string
-      show_after:
+      show_before:
         type: categories
         validations:
           max: 1

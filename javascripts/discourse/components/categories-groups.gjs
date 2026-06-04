@@ -72,16 +72,16 @@ export default class CategoriesGroups extends Component {
     // to the "ungrouped" section.
     const foundCategories = [];
 
-    // Returns a category followed by any extra links positioned after it (via
-    // the link's `show_after` category), so links render inline next to a
+    // Returns each category preceded by any extra links positioned before it
+    // (via the link's `show_before` category), so links render inline next to a
     // category.
     const withLinks = (categories) => {
       const items = [];
       categories.forEach((category) => {
-        items.push(category);
         extraLinks
-          .filter((link) => (link.show_after || []).includes(category.id))
+          .filter((link) => (link.show_before || []).includes(category.id))
           .forEach((link) => items.push(new ExtraLink(link)));
+        items.push(category);
       });
       return items;
     };

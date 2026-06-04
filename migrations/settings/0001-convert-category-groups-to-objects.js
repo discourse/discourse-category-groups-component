@@ -30,18 +30,19 @@ export default function migrate(settings, helpers) {
           .filter(Boolean);
 
         const categories = [];
-        let lastCategoryId = null;
+        let pendingLinks = [];
 
         tokens.forEach((token) => {
           const categoryId = helpers?.getCategoryIdBySlug?.(token);
 
           if (categoryId) {
             categories.push(categoryId);
-            lastCategoryId = categoryId;
-          } else if (linksById.has(token) && lastCategoryId) {
-            // The token is an extra-link ID interleaved after a category;
-            // preserve its position via the link's `show_after`.
-            linksById.get(token).show_after = [lastCategoryId];
+            // Any links seen since the previous category were interleaved
+            // before this one; preserve that position via `show_before`.
+            pendingLinks.forEach((link) => (link.show_before = [categoryId]));
+            pendingLinks = [];
+          } else if (linksById.has(token)) {
+            pendingLinks.push(linksById.get(token));
           }
         });
 
