@@ -22,11 +22,21 @@ RSpec.describe "Category Groups", system: true do
           "title" => title,
           "description" => description,
           "icon" => "heart",
+          "show_after" => [category.id],
         },
       ].to_json,
     )
     theme_component.update_setting(:fancy_styling, true)
-    theme_component.update_setting(:category_groups, "Default Categories: #{id}, #{category.slug}")
+    theme_component.update_setting(
+      :category_groups,
+      [
+        {
+          "name" => "Default Categories",
+          "categories" => [category.id],
+          "translations" => [{ "locale" => "fr", "name" => "Catégories par défaut" }],
+        },
+      ].to_json,
+    )
     SiteSetting.desktop_category_page_style = "categories_boxes"
     theme_component.save!
   end
@@ -62,6 +72,32 @@ RSpec.describe "Category Groups", system: true do
 
     expect(page).to have_css(".category-box-heading .d-icon-heart", count: 1)
     expect(page).to have_css(".category-box-heading .--style-square", count: 2)
+  end
+
+  it "positions an extra link after its show_after category" do
+    visit "/categories"
+
+    expect(page).to have_css(
+      ".custom-category-group-default-categories .category-box-#{category.slug} + .extra-link-#{id}",
+    )
+  end
+
+  it "displays the group name in the default locale" do
+    visit "/categories"
+
+    expect(page).to have_css(".custom-category-group-default-categories h2", text: "Default Categories")
+  end
+
+  it "localizes the group name for the user's locale" do
+    SiteSetting.allow_user_locale = true
+    sign_in(Fabricate(:admin, locale: "fr"))
+
+    visit "/categories"
+
+    expect(page).to have_css(
+      ".custom-category-group-default-categories h2",
+      text: "Catégories par défaut",
+    )
   end
 
   it "works with core category icons and emojis" do
