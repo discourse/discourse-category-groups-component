@@ -70,8 +70,10 @@ RSpec.describe "Category Groups", system: true do
   it "renders category badges" do
     visit "/categories"
 
-    expect(page).to have_css(".category-box-heading .d-icon-heart", count: 1)
-    expect(page).to have_css(".category-box-heading .--style-square", count: 2)
+    within(".custom-category-group-default-categories") do
+      expect(page).to have_css(".category-box-heading .d-icon-heart", count: 1)
+      expect(page).to have_css(".category-box-heading .--style-square", count: 1)
+    end
   end
 
   it "positions an extra link before its show_before category" do
