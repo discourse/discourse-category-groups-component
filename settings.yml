@@ -1,52 +1,104 @@
 category_groups:
-  type: "list"
-  default: "Default Categories: staff, site-feedback, lounge"
+  type: objects
+  default: []
+  schema:
+    name: category group
+    identifier: name
+    properties:
+      name:
+        type: string
+        required: true
+      categories:
+        type: categories
+      translations:
+        type: objects
+        schema:
+          name: translation
+          identifier: locale
+          properties:
+            locale:
+              type: enum
+              required: true
+              choices:
+                - ar
+                - be
+                - bg
+                - bs_BA
+                - ca
+                - cs
+                - da
+                - de
+                - el
+                - en
+                - en_GB
+                - es
+                - et
+                - fa_IR
+                - fi
+                - fr
+                - gl
+                - he
+                - hr
+                - hu
+                - hy
+                - id
+                - it
+                - ja
+                - ko
+                - lt
+                - lv
+                - nb_NO
+                - nl
+                - pl_PL
+                - pt
+                - pt_BR
+                - ro
+                - ru
+                - sk
+                - sl
+                - sq
+                - sr
+                - sv
+                - sw
+                - te
+                - th
+                - tr_TR
+                - ug
+                - uk
+                - ur
+                - vi
+                - zh_CN
+                - zh_TW
+            name:
+              type: string
+              required: true
 extra_links:
-  default: >
-    []
-  json_schema: >-
-    {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "ID",
-            "description": "A unique identifier for the link"
-          },
-          "url": {
-            "type": "string",
-            "title": "URL",
-            "description": "The URL for the link"
-          },
-          "color": {
-            "type": "string",
-            "title": "Color",
-            "description": "The color associated with the link",
-            "format": "color"
-          },
-          "title": {
-            "type": "string",
-            "title": "Title",
-            "description": "The title of the link"
-          },
-          "description": {
-            "type": "string",
-            "format": "markdown",
-            "title": "Description",
-            "description": "A short description of the link"
-          },
-          "icon": {
-            "type": "string",
-            "title": "Icon",
-            "description": "An icon for the link. Example: heart",
-            "default": ""
-          }
-        },
-        "required": ["id", "url", "title", "color"]
-      }
-    }
+  type: objects
+  default: []
+  schema:
+    name: extra link
+    identifier: title
+    properties:
+      id:
+        type: string
+        required: true
+      url:
+        type: string
+        required: true
+      title:
+        type: string
+        required: true
+      color:
+        type: string
+        required: true
+      description:
+        type: string
+      icon:
+        type: string
+      show_before:
+        type: categories
+        validations:
+          max: 1
 
 show_on_mobile:
   default: true
