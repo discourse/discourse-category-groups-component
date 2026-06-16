@@ -8,6 +8,17 @@ tr_TR:
   theme_metadata:
     description: "grup ayarları ile özel kategori sayfası"
     settings:
+      category_groups: "Her grubu bir ad ve içerdiği kategorilerle (görüntülenme sırasına göre) tanımlayın. Bir grubun adını dil ayarına göre yerelleştirmek için çeviriler alanını kullanın (örn. 'fr' dil ayarı)."
+      extra_links:
+        description: "Kategori listesine eklenebilecek ek bağlantılar. Bir bağlantının \"şundan sonra göster\" kategorisini ayarlayarak, o bağlantıyı o kategorinin arkasına yerleştirebilirsiniz."
+        schema:
+          properties:
+            id:
+              description: "Bu bağlantı için herhangi bir benzersiz tanımlayıcı (örn. my-link)."
+            color:
+              description: "Onaltılık biçimi kullanın, örneğin #00ff00"
+            show_before:
+              description: "Bu kategorinin önüne ek bir bağlantı eklenecektir."
       show_on_mobile: "Daraltılabilir kategori kutusu gruplarını mobil cihazlarda göster"
       show_ungrouped: "Başka bir gruba atanmamış bir kategori grubunu görüntüle"
       hide_muted_subcategories: "Etkinleştirildiğinde, sessize alınmış bir alt kategoriye sahipse sessize alınmamış bir üst kategori, sessize alınmış bölümün altında görünmez."
