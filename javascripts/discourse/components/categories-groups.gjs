@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-classic-components, ember/require-tagless-components */
 import Component from "@ember/component";
 import { fn } from "@ember/helper";
 import { on } from "@ember/modifier";
@@ -17,15 +18,8 @@ import categoryLink, {
 import icon from "discourse/helpers/d-icon";
 import lazyHash from "discourse/helpers/lazy-hash";
 import { slugify } from "discourse/lib/utilities";
-import { i18n } from "discourse-i18n";
+import I18nInstance, { i18n } from "discourse-i18n";
 import CategoryGroupExtraLink from "./category-group-extra-link";
-
-function parseSettings(settings) {
-  return settings.split("|").map((i) => {
-    const [categoryGroup, categories] = i.split(":").map((str) => str.trim());
-    return { categoryGroup, categories };
-  });
-}
 
 const ExtraLink = class {
   constructor(args) {
@@ -42,6 +36,14 @@ const ExtraLink = class {
 export default class CategoriesGroups extends Component {
   @service router;
   @service siteSettings;
+
+  localizedGroupName(group) {
+    const locale = I18nInstance.currentLocale();
+    const translation = (group.translations || []).find(
+      (t) => t.locale === locale
+    );
+    return translation?.name || group.name;
+  }
 
   get shouldShow() {
     const currentRoute = this.router.currentRouteName;
@@ -63,41 +65,48 @@ export default class CategoriesGroups extends Component {
   }
 
   get categoryGroupList() {
-    const parsedSettings = parseSettings(settings.category_groups);
-    const extraLinks = JSON.parse(settings.extra_links || "[]");
+    const parsedSettings = settings.category_groups;
+    const extraLinks = settings.extra_links || [];
 
-    // Initialize an array to keep track of found categories and used links
+    // Keep track of which categories landed in a group so the rest fall through
+    // to the "ungrouped" section.
     const foundCategories = [];
-    const usedLinks = [];
 
-    // Helper function to find extra link by ID
-    const findExtraLinkById = (id) => extraLinks.find((link) => link.id === id);
+    // Returns each category preceded by any extra links positioned before it
+    // (via the link's `show_before` category), so links render inline next to a
+    // category.
+    const withLinks = (categories) => {
+      const items = [];
+      categories.forEach((category) => {
+        extraLinks
+          .filter((link) => (link.show_before || []).includes(category.id))
+          .forEach((link) => items.push(new ExtraLink(link)));
+        items.push(category);
+      });
+      return items;
+    };
 
     // Iterate through parsed settings in the defined order
     const categoryGroupList = parsedSettings.reduce((groups, obj) => {
-      const categoryArray = obj.categories.split(",").map((str) => str.trim());
-      const categoryGroup = [];
+      const groupCategories = (obj.categories || [])
+        .map((id) =>
+          this.categories.find((cat) => cat.id === Number(id) && !cat.hasMuted)
+        )
+        .filter(Boolean);
 
-      // Iterate through each category/link in the order specified in settings
-      categoryArray.forEach((categoryOrLinkId) => {
-        const category = this.categories.find(
-          (cat) => cat.slug === categoryOrLinkId && !cat.hasMuted
-        );
+      groupCategories.forEach((c) => foundCategories.push(c.slug));
 
-        if (category) {
-          categoryGroup.push(category);
-          foundCategories.push(category.slug);
-        } else {
-          const extraLink = findExtraLinkById(categoryOrLinkId);
-          if (extraLink) {
-            categoryGroup.push(new ExtraLink(extraLink));
-            usedLinks.push(extraLink.id);
-          }
-        }
-      });
+      const items = withLinks(groupCategories);
 
-      if (categoryGroup.length > 0) {
-        groups.push({ name: obj.categoryGroup, items: categoryGroup });
+      if (items.length > 0) {
+        // `slug` is derived from the default name so it stays stable across
+        // locales (used for CSS classes and localStorage collapse state),
+        // while `name` is the localized label shown to the user.
+        groups.push({
+          name: this.localizedGroupName(obj),
+          slug: slugify(obj.name),
+          items,
+        });
       }
       return groups;
     }, []);
@@ -115,25 +124,29 @@ export default class CategoriesGroups extends Component {
     if (settings.show_ungrouped && ungroupedCategories.length > 0) {
       categoryGroupList.push({
         name: i18n(themePrefix("ungrouped_categories_title")),
-        items: ungroupedCategories,
+        slug: "ungrouped",
+        items: withLinks(ungroupedCategories),
       });
     }
 
     if (mutedCategories.length > 0) {
-      categoryGroupList.push({ name: "muted", items: mutedCategories });
+      categoryGroupList.push({
+        name: i18n(themePrefix("muted_categories_title")),
+        slug: "muted",
+        items: mutedCategories,
+      });
     }
 
     return categoryGroupList;
   }
 
   @action
-  toggleCategories(name, event) {
+  toggleCategories(slug, event) {
     event.preventDefault();
 
-    const id = slugify(name);
     const storedCategories =
       JSON.parse(localStorage.getItem("categoryGroups")) || [];
-    const categoryClass = `.custom-category-group-${id}`;
+    const categoryClass = `.custom-category-group-${slug}`;
 
     if (storedCategories.includes(categoryClass)) {
       storedCategories.removeObject(categoryClass);
@@ -161,11 +174,6 @@ export default class CategoriesGroups extends Component {
     });
   }
 
-  @action
-  slugifyIdentifier(str) {
-    return slugify(str);
-  }
-
   <template>
     {{#if this.shouldShow}}
       <section class="category-boxes with-logos with-subcategories">
@@ -174,14 +182,11 @@ export default class CategoriesGroups extends Component {
           {{didInsert this.initializeLocalStorage}}
         >
           {{#each this.categoryGroupList as |t|}}
-            <div
-              class="custom-category-group-{{this.slugifyIdentifier t.name}}
-                is-expanded"
-            >
+            <div class="custom-category-group-{{t.slug}} is-expanded">
               <a
-                {{on "click" (fn this.toggleCategories t.name)}}
+                {{on "click" (fn this.toggleCategories t.slug)}}
                 href
-                id={{this.slugifyIdentifier t.name}}
+                id={{t.slug}}
                 class="custom-category-group-toggle"
               >
                 <h2>{{t.name}}</h2>
