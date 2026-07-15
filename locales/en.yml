@@ -4,7 +4,7 @@ en:
     settings:
       category_groups: "Define each group with a name and the categories it contains (in display order). Use the translations field to localize a group's name per locale (e.g. locale 'fr')."
       extra_links:
-        description: "Extra links that can be mixed into the category list. Set a link's \"show after\" category to position it after that category."
+        description: "Extra links that can be mixed into the category list. Use \"show before\" to position a link before a category, or \"show in group\" to add it to the end of a group."
         schema:
           properties:
             id:
@@ -13,6 +13,8 @@ en:
               description: "Use hex format, e.g. #00ff00"
             show_before:
               description: "The extra link will appear before this category."
+            show_in_group:
+              description: "The extra link will appear at the end of the group with this name (use the group's default, untranslated name). Allows a group to contain only links. If no group matches, the link falls back to the ungrouped section."
       show_on_mobile: "Show the collapsible category box groups on mobile"
       show_ungrouped: "Display a group of categories that aren't assigned to another group"
       hide_muted_subcategories: "When enabled, a non-muted parent category will not appear under the muted section if it has a muted subcategory"
