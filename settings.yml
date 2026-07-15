@@ -99,6 +99,8 @@ extra_links:
         type: categories
         validations:
           max: 1
+      show_in_group:
+        type: string
 
 show_on_mobile:
   default: true

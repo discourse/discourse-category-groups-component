@@ -105,6 +105,57 @@ RSpec.describe "Category Groups", system: true do
     )
   end
 
+  it "displays a group that contains only extra links" do
+    theme_component.update_setting(
+      :extra_links,
+      [
+        {
+          "id" => "links-only-link",
+          "url" => "https://meta.discourse.org",
+          "color" => "#0000ff",
+          "title" => "Community",
+          "show_in_group" => "Just Links",
+        },
+      ].to_json,
+    )
+    theme_component.update_setting(
+      :category_groups,
+      [
+        { "name" => "Default Categories", "categories" => [category.id] },
+        { "name" => "Just Links", "categories" => [] },
+      ].to_json,
+    )
+    theme_component.save!
+
+    visit "/categories"
+
+    within(".custom-category-group-just-links") do
+      expect(page).to have_css(".extra-link-links-only-link", text: "Community")
+    end
+  end
+
+  it "falls back to the ungrouped section when show_in_group matches no group" do
+    theme_component.update_setting(
+      :extra_links,
+      [
+        {
+          "id" => "orphaned-link",
+          "url" => "https://meta.discourse.org",
+          "color" => "#00ff00",
+          "title" => "Orphaned",
+          "show_in_group" => "Renamed Group",
+        },
+      ].to_json,
+    )
+    theme_component.save!
+
+    visit "/categories"
+
+    within(".custom-category-group-ungrouped") do
+      expect(page).to have_css(".extra-link-orphaned-link", text: "Orphaned")
+    end
+  end
+
   it "works with core category icons and emojis" do
     category.update!(style_type: "emoji", emoji: "wave")
     visit "/categories"

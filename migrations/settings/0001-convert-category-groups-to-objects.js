@@ -46,6 +46,10 @@ export default function migrate(settings, helpers) {
           }
         });
 
+        // Links with no category after them (links-only groups or trailing
+        // links) keep their group membership via `show_in_group`.
+        pendingLinks.forEach((link) => (link.show_in_group = name));
+
         return { name, categories };
       })
       .filter(Boolean);

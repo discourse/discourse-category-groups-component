@@ -67,6 +67,7 @@ export default class CategoriesGroups extends Component {
   get categoryGroupList() {
     const parsedSettings = settings.category_groups;
     const extraLinks = settings.extra_links || [];
+    const trimmedName = (name) => (name || "").trim();
 
     // Keep track of which categories landed in a group so the rest fall through
     // to the "ungrouped" section.
@@ -98,6 +99,23 @@ export default class CategoriesGroups extends Component {
 
       const items = withLinks(groupCategories);
 
+      // Links assigned to this group via `show_in_group` (matched against the
+      // default group name) go at the end, after the categories. This also
+      // lets a group contain only links and no categories.
+      const placedIds = new Set(
+        items.filter((i) => i.isExtraLink).map((i) => i.id)
+      );
+      extraLinks
+        .filter((link) => {
+          const target = trimmedName(link.show_in_group);
+          return (
+            target &&
+            target === trimmedName(obj.name) &&
+            !placedIds.has(link.id)
+          );
+        })
+        .forEach((link) => items.push(new ExtraLink(link)));
+
       if (items.length > 0) {
         // `slug` is derived from the default name so it stays stable across
         // locales (used for CSS classes and localStorage collapse state),
@@ -121,11 +139,30 @@ export default class CategoriesGroups extends Component {
       ? this.categories.filter((c) => c.notification_level === 0)
       : this.categories.filter((c) => c.hasMuted);
 
-    if (settings.show_ungrouped && ungroupedCategories.length > 0) {
+    // Links whose show_in_group matches no group name (typo or a renamed
+    // group) fall back to the ungrouped section instead of disappearing.
+    // Links with a show_before placement are left to that mechanism.
+    const groupNames = new Set(parsedSettings.map((g) => trimmedName(g.name)));
+    const orphanedLinks = extraLinks.filter((link) => {
+      const target = trimmedName(link.show_in_group);
+      return (
+        target &&
+        !groupNames.has(target) &&
+        (link.show_before || []).length === 0
+      );
+    });
+
+    if (
+      settings.show_ungrouped &&
+      (ungroupedCategories.length > 0 || orphanedLinks.length > 0)
+    ) {
       categoryGroupList.push({
         name: i18n(themePrefix("ungrouped_categories_title")),
         slug: "ungrouped",
-        items: withLinks(ungroupedCategories),
+        items: [
+          ...withLinks(ungroupedCategories),
+          ...orphanedLinks.map((link) => new ExtraLink(link)),
+        ],
       });
     }
 
