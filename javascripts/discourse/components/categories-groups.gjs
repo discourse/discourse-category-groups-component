@@ -10,6 +10,10 @@ import CategoryLogo from "discourse/components/category-logo";
 import CategoryTitleBefore from "discourse/components/category-title-before";
 import CategoryTitleLink from "discourse/components/category-title-link";
 import CdnImg from "discourse/components/cdn-img";
+import {
+  addUniqueValueToArray,
+  removeValueFromArray,
+} from "discourse/lib/array-tools";
 import PluginOutlet from "discourse/components/plugin-outlet";
 import borderColor from "discourse/helpers/border-color";
 import categoryLink, {
@@ -137,10 +141,10 @@ export default class CategoriesGroups extends Component {
     const categoryClass = `.custom-category-group-${id}`;
 
     if (storedCategories.includes(categoryClass)) {
-      storedCategories.removeObject(categoryClass);
+      removeValueFromArray(storedCategories, categoryClass);
       document.querySelector(categoryClass)?.classList.add("is-expanded");
     } else {
-      storedCategories.addObject(categoryClass);
+      addUniqueValueToArray(storedCategories, categoryClass);
       document.querySelector(categoryClass)?.classList.remove("is-expanded");
     }
 
