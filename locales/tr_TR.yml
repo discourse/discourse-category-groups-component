@@ -10,7 +10,6 @@ tr_TR:
     settings:
       category_groups: "Her grubu bir ad ve içerdiği kategorilerle (görüntülenme sırasına göre) tanımlayın. Bir grubun adını dil ayarına göre yerelleştirmek için çeviriler alanını kullanın (örn. 'fr' dil ayarı)."
       extra_links:
-        description: "Kategori listesine eklenebilecek ek bağlantılar. Bir bağlantının \"şundan sonra göster\" kategorisini ayarlayarak, o bağlantıyı o kategorinin arkasına yerleştirebilirsiniz."
         schema:
           properties:
             id:
