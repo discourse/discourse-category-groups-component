@@ -10,6 +10,7 @@ tr_TR:
     settings:
       category_groups: "Her grubu bir ad ve içerdiği kategorilerle (görüntülenme sırasına göre) tanımlayın. Bir grubun adını dil ayarına göre yerelleştirmek için çeviriler alanını kullanın (örn. 'fr' dil ayarı)."
       extra_links:
+        description: "Kategori listesine eklenebilecek ek bağlantılar. Bir bağlantıyı bir kategorinin önüne yerleştirmek için \"önünde göster\" seçeneğini, bir grubun sonuna eklemek için ise \"grupta göster\" seçeneğini kullanın."
         schema:
           properties:
             id:
@@ -18,6 +19,8 @@ tr_TR:
               description: "Onaltılık biçimi kullanın, örneğin #00ff00"
             show_before:
               description: "Bu kategorinin önüne ek bir bağlantı eklenecektir."
+            show_in_group:
+              description: "Ekstra bağlantı, grubun sonunda bu adla görünecektir (grubun varsayılan, çevrilmemiş adını kullanın). Bir grubun yalnızca bağlantılar içermesine olanak tanır. Eşleşen bir grup bulunmazsa, bağlantı gruplandırılmamış bölüme yönlendirilir."
       show_on_mobile: "Daraltılabilir kategori kutusu gruplarını mobil cihazlarda göster"
       show_ungrouped: "Başka bir gruba atanmamış bir kategori grubunu görüntüle"
       hide_muted_subcategories: "Etkinleştirildiğinde, sessize alınmış bir alt kategoriye sahipse sessize alınmamış bir üst kategori, sessize alınmış bölümün altında görünmez."
