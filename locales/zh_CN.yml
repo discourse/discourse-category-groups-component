@@ -8,9 +8,22 @@ zh_CN:
   theme_metadata:
     description: "带有群组设置的自定义类别页面"
     settings:
+      category_groups: "为每个群组指定名称及其包含的类别（按显示顺序排列）。使用翻译字段可根据语言区域（例如 'fr'）对群组名称进行本地化。"
+      extra_links:
+        description: "可以混合到类别列表中的额外链接。请使用“在此之前显示”将链接置于某个类别之前，或使用“在群组内显示”将其添加到某个群组的末尾。"
+        schema:
+          properties:
+            id:
+              description: "此链接的任何唯一标识符（例如 my-link）。"
+            color:
+              description: "请使用十六进制格式，例如 #00ff00"
+            show_before:
+              description: "额外的链接将显示在此类别之前。"
+            show_in_group:
+              description: "额外的链接将显示在具有此名称的群组的末尾（使用群组的默认、未翻译的名称）。允许群组仅包含链接。如果没有匹配的群组，链接将回退到未分组的版块。"
       show_on_mobile: "在移动设备上显示可折叠的类别框组"
       show_ungrouped: "显示未指定给其他群组的一组类别"
       hide_muted_subcategories: "启用后，如果未设为免打扰的父类别具有已设为免打扰的子类别，则该类别将不会出现在已设为免打扰的部分下"
       fancy_styling: "启用其他样式"
   ungrouped_categories_title: "其他"
-  muted_categories_title: "免打扰"
+  muted_categories_title: "已设为免打扰"
