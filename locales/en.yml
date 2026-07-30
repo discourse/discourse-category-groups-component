@@ -2,9 +2,14 @@ en:
   theme_metadata:
     description: "custom category page with group settings"
     settings:
-      category_groups: "Define each group with a name and the categories it contains (in display order). Use the translations field to localize a group's name per locale (e.g. locale 'fr')."
+      category_groups:
+        description: "Define each group with a name and the categories it contains (in display order). Use the translations field to localize a group's name per locale (e.g. locale 'fr')."
+        schema:
+          properties:
+            visibility:
+              description: "Only members of these groups will see this category group on the categories page. Leave blank to show it to everyone. This only controls whether the group is displayed here — it does not change category permissions, and the categories remain visible everywhere else."
       extra_links:
-        description: "Extra links that can be mixed into the category list. Use \"show before\" to position a link before a category, or \"show in group\" to add it to the end of a group."
+        description: 'Extra links that can be mixed into the category list. Use "show before" to position a link before a category, or "show in group" to add it to the end of a group.'
         schema:
           properties:
             id:
