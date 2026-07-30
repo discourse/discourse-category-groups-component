@@ -8,6 +8,19 @@ de:
   theme_metadata:
     description: "benutzerdefinierte Kategorieseite mit Gruppeneinstellungen"
     settings:
+      category_groups: "Definiere jede Gruppe mit einem Namen und den darin enthaltenen Kategorien (in der Reihenfolge, in der sie angezeigt werden). Nutze das Feld „Übersetzungen“, um den Namen einer Gruppe für jede Sprache zu übersetzen (z. B. „fr“ für Französisch)."
+      extra_links:
+        description: "Zusätzliche Links, die in die Kategorieliste eingefügt werden können. Verwende „Vor … anzeigen“, um einen Link vor einer Kategorie zu platzieren, oder „In Gruppe anzeigen“, um ihn am Ende einer Gruppe hinzuzufügen."
+        schema:
+          properties:
+            id:
+              description: "Eine eindeutige Kennung für diesen Link (z. B. my-link)."
+            color:
+              description: "Verwende das Hexadezimalformat, z. B. #00ff00"
+            show_before:
+              description: "Der zusätzliche Link wird vor dieser Kategorie angezeigt."
+            show_in_group:
+              description: "Der zusätzliche Link erscheint am Ende der Gruppe mit diesem Namen (verwende den standardmäßigen, nicht übersetzten Namen der Gruppe). So kann eine Gruppe ausschließlich aus Links bestehen. Wenn keine passende Gruppe gefunden wird, wird der Link in den nicht gruppierten Bereich verschoben."
       show_on_mobile: "Zeige die zusammenklappbaren Kategoriebox-Gruppen auf Mobilgeräten an"
       show_ungrouped: "Eine Gruppe von Kategorien anzeigen, die keiner anderen Gruppe zugeordnet sind"
       hide_muted_subcategories: "Wenn diese Option aktiviert ist, wird eine nicht stummgeschaltete übergeordnete Kategorie nicht im stummgeschalteten Abschnitt angezeigt, wenn sie eine stummgeschaltete Unterkategorie hat"
