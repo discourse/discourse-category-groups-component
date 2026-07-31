@@ -156,6 +156,65 @@ RSpec.describe "Category Groups", system: true do
     end
   end
 
+  context "with visibility set on a group" do
+    let!(:restricted_group) { Fabricate(:group) }
+    let!(:other_category) { Fabricate(:category) }
+
+    def set_visibility(group_ids)
+      theme_component.update_setting(
+        :category_groups,
+        [
+          {
+            "name" => "Default Categories",
+            "categories" => [category.id],
+            "visibility" => group_ids,
+          },
+        ].to_json,
+      )
+      theme_component.save!
+    end
+
+    it "hides the group from users who aren't members" do
+      set_visibility([restricted_group.id])
+
+      visit "/categories"
+
+      expect(page).to have_css(".custom-categories-groups")
+      expect(page).to have_no_css(".custom-category-group-default-categories")
+    end
+
+    it "shows the group to members" do
+      user = Fabricate(:user)
+      restricted_group.add(user)
+      sign_in(user)
+      set_visibility([restricted_group.id])
+
+      visit "/categories"
+
+      expect(page).to have_css(".custom-category-group-default-categories")
+    end
+
+    it "shows the group to everyone when visibility is blank" do
+      sign_in(Fabricate(:user))
+      set_visibility([])
+
+      visit "/categories"
+
+      expect(page).to have_css(".custom-category-group-default-categories")
+    end
+
+    it "doesn't move the categories of a hidden group into the ungrouped section" do
+      set_visibility([restricted_group.id])
+
+      visit "/categories"
+
+      within(".custom-category-group-ungrouped") do
+        expect(page).to have_no_css(".category-box-#{category.slug}")
+        expect(page).to have_css(".category-box-#{other_category.slug}")
+      end
+    end
+  end
+
   it "works with core category icons and emojis" do
     category.update!(style_type: "emoji", emoji: "wave")
     visit "/categories"

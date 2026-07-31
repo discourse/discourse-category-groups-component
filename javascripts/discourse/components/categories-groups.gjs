@@ -10,10 +10,6 @@ import CategoryLogo from "discourse/components/category-logo";
 import CategoryTitleBefore from "discourse/components/category-title-before";
 import CategoryTitleLink from "discourse/components/category-title-link";
 import CdnImg from "discourse/components/cdn-img";
-import {
-  addUniqueValueToArray,
-  removeValueFromArray,
-} from "discourse/lib/array-tools";
 import PluginOutlet from "discourse/components/plugin-outlet";
 import borderColor from "discourse/helpers/border-color";
 import categoryLink, {
@@ -21,6 +17,10 @@ import categoryLink, {
 } from "discourse/helpers/category-link";
 import icon from "discourse/helpers/d-icon";
 import lazyHash from "discourse/helpers/lazy-hash";
+import {
+  addUniqueValueToArray,
+  removeValueFromArray,
+} from "discourse/lib/array-tools";
 import { slugify } from "discourse/lib/utilities";
 import I18nInstance, { i18n } from "discourse-i18n";
 import CategoryGroupExtraLink from "./category-group-extra-link";
@@ -38,8 +38,21 @@ const ExtraLink = class {
 };
 
 export default class CategoriesGroups extends Component {
+  @service currentUser;
   @service router;
   @service siteSettings;
+
+  isVisibleToCurrentUser(group) {
+    const visibility = group.visibility || [];
+
+    if (visibility.length === 0 || visibility.includes(0)) {
+      return true;
+    }
+
+    return (this.currentUser?.groups || []).some((g) =>
+      visibility.includes(g.id)
+    );
+  }
 
   localizedGroupName(group) {
     const locale = I18nInstance.currentLocale();
@@ -99,7 +112,13 @@ export default class CategoriesGroups extends Component {
         )
         .filter(Boolean);
 
+      // Categories in a hidden group still count as grouped, so they don't
+      // reappear in the "ungrouped" section for users who can't see the group.
       groupCategories.forEach((c) => foundCategories.push(c.slug));
+
+      if (!this.isVisibleToCurrentUser(obj)) {
+        return groups;
+      }
 
       const items = withLinks(groupCategories);
 

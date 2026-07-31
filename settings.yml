@@ -10,6 +10,8 @@ category_groups:
         required: true
       categories:
         type: categories
+      visibility:
+        type: groups
       translations:
         type: objects
         schema:
