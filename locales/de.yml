@@ -8,9 +8,10 @@ de:
   theme_metadata:
     description: "benutzerdefinierte Kategorieseite mit Gruppeneinstellungen"
     settings:
-      category_groups: "Definiere jede Gruppe mit einem Namen und den darin enthaltenen Kategorien (in der Reihenfolge, in der sie angezeigt werden). Nutze das Feld „Übersetzungen“, um den Namen einer Gruppe für jede Sprache zu übersetzen (z. B. „fr“ für Französisch)."
+      category_groups:
+        description: "Definiere jede Gruppe mit einem Namen und den darin enthaltenen Kategorien (in der Reihenfolge, in der sie angezeigt werden). Nutze das Feld „Übersetzungen“, um den Namen einer Gruppe für jede Sprache zu übersetzen (z. B. „fr“ für Französisch)."
       extra_links:
-        description: "Zusätzliche Links, die in die Kategorieliste eingefügt werden können. Verwende „Vor … anzeigen“, um einen Link vor einer Kategorie zu platzieren, oder „In Gruppe anzeigen“, um ihn am Ende einer Gruppe hinzuzufügen."
+        description: 'Zusätzliche Links, die in die Kategorieliste eingefügt werden können. Verwende „Vor … anzeigen“, um einen Link vor einer Kategorie zu platzieren, oder „In Gruppe anzeigen“, um ihn am Ende einer Gruppe hinzuzufügen.'
         schema:
           properties:
             id:
