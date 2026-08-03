@@ -8,9 +8,10 @@ tr_TR:
   theme_metadata:
     description: "grup ayarları ile özel kategori sayfası"
     settings:
-      category_groups: "Her grubu bir ad ve içerdiği kategorilerle (görüntülenme sırasına göre) tanımlayın. Bir grubun adını dil ayarına göre yerelleştirmek için çeviriler alanını kullanın (örn. 'fr' dil ayarı)."
+      category_groups:
+        description: "Her grubu bir ad ve içerdiği kategorilerle (görüntülenme sırasına göre) tanımlayın. Bir grubun adını dil ayarına göre yerelleştirmek için çeviriler alanını kullanın (örn. 'fr' dil ayarı)."
       extra_links:
-        description: "Kategori listesine eklenebilecek ek bağlantılar. Bir bağlantıyı bir kategorinin önüne yerleştirmek için \"önünde göster\" seçeneğini, bir grubun sonuna eklemek için ise \"grupta göster\" seçeneğini kullanın."
+        description: 'Kategori listesine eklenebilecek ek bağlantılar. Bir bağlantıyı bir kategorinin önüne yerleştirmek için "önünde göster" seçeneğini, bir grubun sonuna eklemek için ise "grupta göster" seçeneğini kullanın.'
         schema:
           properties:
             id:

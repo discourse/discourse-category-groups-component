@@ -8,9 +8,10 @@ zh_CN:
   theme_metadata:
     description: "带有群组设置的自定义类别页面"
     settings:
-      category_groups: "为每个群组指定名称及其包含的类别（按显示顺序排列）。使用翻译字段可根据语言区域（例如 'fr'）对群组名称进行本地化。"
+      category_groups:
+        description: "为每个群组指定名称及其包含的类别（按显示顺序排列）。使用翻译字段可根据语言区域（例如 'fr'）对群组名称进行本地化。"
       extra_links:
-        description: "可以混合到类别列表中的额外链接。请使用“在此之前显示”将链接置于某个类别之前，或使用“在群组内显示”将其添加到某个群组的末尾。"
+        description: '可以混合到类别列表中的额外链接。请使用“在此之前显示”将链接置于某个类别之前，或使用“在群组内显示”将其添加到某个群组的末尾。'
         schema:
           properties:
             id:
