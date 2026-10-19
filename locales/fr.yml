@@ -8,9 +8,27 @@ fr:
   theme_metadata:
     description: "page de catégorie personnalisée avec paramètres de groupe"
     settings:
+      category_groups:
+        description: "Définissez chaque groupe par son nom et les catégories qu'il contient, dans l'ordre d'affichage. Utilisez le champ « translations » pour traduire le nom de chaque groupe selon la langue (p. ex. « fr »)."
+        schema:
+          properties:
+            visibility:
+              description: "Seuls les membres de ces groupes verront ce groupe de catégories sur la page des catégories. Laissez ce champ vide pour l'afficher à tout le monde. Ce paramètre ne contrôle que l'affichage du groupe sur cette page : il ne modifie pas les autorisations des catégories, qui restent visibles ailleurs."
+      extra_links:
+        description: 'Liens supplémentaires pouvant être insérés dans la liste des catégories. Utilisez « show_before » pour placer un lien avant une catégorie ou « show_in_group » pour l''ajouter à la fin d''un groupe.'
+        schema:
+          properties:
+            id:
+              description: "Identifiant unique de ce lien (p. ex. my-link)."
+            color:
+              description: "Utilisez le format hexadécimal, p. ex. #00ff00"
+            show_before:
+              description: "Le lien supplémentaire apparaîtra avant cette catégorie."
+            show_in_group:
+              description: "Le lien supplémentaire apparaîtra à la fin du groupe portant ce nom (utilisez le nom d'origine du groupe, non traduit). Un groupe peut ainsi ne contenir que des liens. Si aucun groupe ne correspond, le lien sera placé dans la section « Autres », qui regroupe les catégories non classées."
       show_on_mobile: "Afficher les groupes de catégories rabattables sur mobile"
       show_ungrouped: "Afficher un groupe de catégories qui ne sont pas affectées à un autre groupe"
-      hide_muted_subcategories: "Lorsque cette option est activée, une catégorie parente non désactivée n'apparaîtra pas dans la section désactivée si elle comporte une sous-catégorie désactivée"
+      hide_muted_subcategories: "Lorsque cette option est activée, une catégorie parente qui n'est pas mise en sourdine n'apparaît pas dans la section des catégories mises en sourdine, même si elle contient une sous-catégorie mise en sourdine"
       fancy_styling: "Activer un style supplémentaire"
-  ungrouped_categories_title: "Autre"
+  ungrouped_categories_title: "Autres"
   muted_categories_title: "En sourdine"
