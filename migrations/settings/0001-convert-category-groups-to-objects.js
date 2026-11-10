@@ -1,3 +1,12 @@
+// Must match the required `extra_links` properties in settings.yml.
+const REQUIRED_LINK_FIELDS = ["id", "url", "title", "color"];
+
+function isStorableLink(link) {
+  return REQUIRED_LINK_FIELDS.every(
+    (field) => typeof link?.[field] === "string" && link[field].trim()
+  );
+}
+
 export default function migrate(settings, helpers) {
   const rawGroups = settings.get("category_groups");
   const rawLinks = settings.get("extra_links");
@@ -11,7 +20,9 @@ export default function migrate(settings, helpers) {
     return settings;
   }
 
-  const links = linksNeedMigration ? JSON.parse(rawLinks || "[]") : [];
+  const links = linksNeedMigration
+    ? JSON.parse(rawLinks || "[]").filter(isStorableLink)
+    : [];
   const linksById = new Map(links.map((link) => [link.id, link]));
 
   if (groupsNeedMigration) {
