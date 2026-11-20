@@ -94,7 +94,6 @@ RSpec.describe "Category Groups", system: true do
   end
 
   it "localizes the group name for the user's locale" do
-    SiteSetting.allow_user_locale = true
     sign_in(Fabricate(:admin, locale: "fr"))
 
     visit "/categories"
